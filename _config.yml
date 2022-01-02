@@ -33,6 +33,7 @@ title: WWWでつかまえて
 url: https://www-de-tsukamaete.github.io/
 gems:
   - jekyll-sitemap
+  - jekyll-seo-tag
 twitter:
   username: wwwdetsukamaete
   card: summary
