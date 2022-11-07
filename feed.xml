@@ -9,7 +9,7 @@
     <copyright> Copyright 2021 DOI and peipeipe </copyright>
     <description>{{ site.description | xml_escape }}</description>
     <media:keywords>{{ site.keywords }}</media:keywords>
-    <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">Animation & Manga</media:category>
+    <!-- <media:category scheme="http://www.itunes.com/dtds/podcast-1.0.dtd">"Animation & Manga"</media:category> -->
     <language>{{ site.language }}</language>
     <itunes:subtitle>{{ site.description | xml_escape }}</itunes:subtitle>
     <itunes:author>{{ site.author }}</itunes:author>
@@ -20,7 +20,9 @@
       <itunes:email>{{ site.email }}</itunes:email>
     </itunes:owner>
     <itunes:image href="{{ site.github.url }}/images/itunesartwork.jpg" />
-    <itunes:category text="Animation & Manga"/>
+    <itunes:category text="Leisure">
+      <itunes:category text="Animation & Manga"/>
+    </itunes:category>
     <itunes:explicit>no</itunes:explicit>
     {% for post in site.posts %}
       <item>
