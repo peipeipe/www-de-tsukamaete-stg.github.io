@@ -7,16 +7,26 @@ LATEST=0
 DIFF_FILES=`git diff HEAD^..HEAD --name-only --diff-filter=A -- _posts/*.md`
 
 for FILE_PATH in $DIFF_FILES ; do
-  TITLE=`head ${FILE_PATH} | grep '^title:' | sed 's/^title: *//g'`
-  DATE=`head ${FILE_PATH} | grep '^date:' | sed -e 's/^date: *\([0-9]\{4\}\)-\([0-9]\{2\}\)-\([0-9]\{2\}\) .*$/\1\/\2\/\3/g'`
-  FILE_NAME=`git diff HEAD^..HEAD --name-only --diff-filter=A -- _posts/*.md`
-  MESSAGE="${TITLE} ${BASE_URL}/${DATE}/${FILE_NAME}"
+  TITLE=`head -13 ${FILE_PATH} | grep '^title:' | sed 's/^title: *//g'`
+  DESCRIPTION=`head -13 ${FILE_PATH} | grep '^description:' | sed 's/^description: *//g'`
+  EPISODE_NUM=`head ${FILE_PATH} | grep '^audio_file_path:' | sed 's/^audio_file_path: *//g'| cut -c 8-10`
 
-  DATE_TIME=`date -d "${DATE}" '+%s'`
-  if [ $DATE_TIME -gt $LATEST ] ; then
-    TWEET_MESSAGE="【ブログを更新しました】${MESSAGE}"
-    LATEST=${DATE_TIME}
-  fi
+  DESCRIPTION_SHORT=`head -13 ${FILE_PATH} | grep '^description:' | sed 's/^description: *//g'`
+
+  MESSAGE="${TITLE} ${BASE_URL}/episode/${EPISODE_NUM} #wtsuka\n ${DESCRIPTION}"
+
+
+TWEET_MESSAGE="【更新】${MESSAGE}"
+
+
+
 done
+# echo ${TWEET_MESSAGE}
 
-echo ${TWEET_MESSAGE}
+length=$(echo -n $MESSAGE | wc -m)
+
+if [  $length -gt 10 ]; then
+  echo $length
+else
+  echo ${TWEET_MESSAGE}
+fi
