@@ -25,8 +25,8 @@ done
 
 length=$(echo -n $MESSAGE | wc -m)
 
-if [  $length -gt 10 ]; then
-  echo $length
+if [  $length -gt 180 ]; then
+  echo ${TWEET_MESSAGE}
 else
   echo ${TWEET_MESSAGE}
 fi
