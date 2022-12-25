@@ -1,26 +1,26 @@
-name: 'Tweet when released'
+# name: 'Tweet when released'
 
-on: [push]
+# on: [push]
 
 
 
-jobs:
-  tweet:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build tweet message
-      uses: matsubara0507/actions/outputs@master
-      id: message
-      # env:
-      #   TARGET_BRANCH: HEAD^
-      with:
-        script_path: test.sh
-    - name: Tweet
-      uses: matsubara0507/actions/tweet@master
-      with:
-        consumer_key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-        consumer_secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET_KEY }}
-        access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        message: ${{ steps.message.outputs.result }}
+# jobs:
+#   tweet:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Build tweet message
+#       uses: matsubara0507/actions/outputs@master
+#       id: message
+#       # env:
+#       #   TARGET_BRANCH: HEAD^
+#       with:
+#         script_path: test.sh
+#     - name: Tweet
+#       uses: matsubara0507/actions/tweet@master
+#       with:
+#         consumer_key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+#         consumer_secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET_KEY }}
+#         access_token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+#         access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+#         message: ${{ steps.message.outputs.result }}
