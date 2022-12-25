@@ -9,6 +9,7 @@ on:
 # シェルスクリプトを実行するためのジョブを作成する
 jobs:
   run-and-tweet:
+    runs-on: ubuntu-latest
     # シェルスクリプトを実行するためのステップを作成する
     steps:
     - uses: actions/checkout@v2
