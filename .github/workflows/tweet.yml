@@ -1,0 +1,48 @@
+# ワークフローファイルを作成する
+name: Tweet script result
+
+# イベントトリガーを定義する
+on:
+  push:
+    branches: [ master ]
+
+# シェルスクリプトを実行するためのジョブを作成する
+jobs:
+  run-and-tweet:
+    # シェルスクリプトを実行するためのステップを作成する
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run script
+      run: sh test.sh
+      shell: bash
+      # シェルスクリプトの実行結果を変数に格納する
+      id: script_result
+    # Twitter APIを使用してツイートするための設定を行う
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: |
+        python -m pip install requests
+        python -m pip install python-twitter
+    # Twitter APIを使用してツイートするステップを作成する
+    - name: Tweet result
+      env:
+        TWITTER_CONSUMER_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+        TWITTER_CONSUMER_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET_KEY }}
+        TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+      run: |
+        import os
+        import twitter
+
+        # シェルスクリプトの実行結果を取得する
+        result = os.getenv("script_result")
+
+        # Twitter APIを使用してツイートする
+        api = twitter.Api(
+            consumer_key=os.getenv("TWITTER_CONSUMER_KEY"),
+            consumer_secret=os.getenv("TWITTER_CONSUMER_SECRET"),
+            access_token_key=os.getenv("TWITTER_ACCESS_TOKEN"),
+            access_token_secret=os.getenv("TWITTER_ACCESS_TOKEN_SECRET"),
+        )
+        api.PostUpdate(result)
