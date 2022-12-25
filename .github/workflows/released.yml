@@ -19,4 +19,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         with:
-          status: ${{ TWEET_MESSAGE }}
+          status: $GITHUB_ENV
