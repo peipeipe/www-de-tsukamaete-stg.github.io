@@ -7,6 +7,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: read
+        run: sh test.sh >> $GITHUB_ENV
+
+
       - name: Tweet
         uses: snow-actions/tweet@v1.1.0
         env:
@@ -15,4 +19,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         with:
-          status: ${{ sh test.sh }}
+          status: ${{ TWEET_MESSAGE }}

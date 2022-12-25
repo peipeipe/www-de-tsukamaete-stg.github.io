@@ -26,7 +26,7 @@ done
 length=$(echo -n $MESSAGE | wc -m)
 
 if [  $length -gt 180 ]; then
-  echo ${TWEET_MESSAGE}
+  echo ${TWEET_MESSAGE} >> $GITHUB_ENV
 else
-  echo ${TWEET_MESSAGE}
+  echo ${TWEET_MESSAGE} >> $GITHUB_ENV
 fi
