@@ -9,8 +9,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: read
-        run: sh test.sh >> $GITHUB_ENV
-
+        run: sh test.sh
+        id: tweet
 
       - name: Tweet
         uses: snow-actions/tweet@v1.1.0
@@ -20,4 +20,4 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
         with:
-          status: $(sh test.sh)
+          status: "${{ steps.tweet.outputs.tweet }}"
