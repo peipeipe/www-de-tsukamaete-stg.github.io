@@ -19,6 +19,6 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
           ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
       
-        with:
-          status: |
-            status: ${{ GITHUB_ENV }}
+      with:
+        status: |
+          Released ${{ github.event.release.name }}
